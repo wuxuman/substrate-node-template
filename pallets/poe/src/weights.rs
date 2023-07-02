@@ -41,6 +41,8 @@ use core::marker::PhantomData;
 /// Weight functions needed for pallet_poe.
 pub trait WeightInfo {
 	fn create_claim(d: u32, ) -> Weight;
+	fn revoke_claim(d: u32, ) -> Weight;
+	fn transfer_claim(d: u32, ) -> Weight;
 }
 
 /// Weights for pallet_poe using the Substrate node and recommended hardware.
@@ -53,10 +55,38 @@ impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
 		// Proof Size summary in bytes:
 		//  Measured:  `6`
 		//  Estimated: `3528`
-		// Minimum execution time: 20_190_000 picoseconds.
-		Weight::from_parts(21_832_223, 3528)
-			// Standard Error: 31_527
-			.saturating_add(Weight::from_parts(179_683, 0).saturating_mul(d.into()))
+		// Minimum execution time: 20_686_000 picoseconds.
+		Weight::from_parts(22_079_509, 3528)
+			// Standard Error: 12_033
+			.saturating_add(Weight::from_parts(47_675, 0).saturating_mul(d.into()))
+			.saturating_add(T::DbWeight::get().reads(1_u64))
+			.saturating_add(T::DbWeight::get().writes(1_u64))
+	}
+	/// Storage: PoeModule Proofs (r:1 w:1)
+	/// Proof: PoeModule Proofs (max_values: None, max_size: Some(63), added: 2538, mode: MaxEncodedLen)
+	/// The range of component `d` is `[0, 10]`.
+	fn revoke_claim(d: u32, ) -> Weight {
+		// Proof Size summary in bytes:
+		//  Measured:  `85 + d * (1 ±0)`
+		//  Estimated: `3528`
+		// Minimum execution time: 20_340_000 picoseconds.
+		Weight::from_parts(19_952_320, 3528)
+			// Standard Error: 113_183
+			.saturating_add(Weight::from_parts(691_933, 0).saturating_mul(d.into()))
+			.saturating_add(T::DbWeight::get().reads(1_u64))
+			.saturating_add(T::DbWeight::get().writes(1_u64))
+	}
+	/// Storage: PoeModule Proofs (r:1 w:1)
+	/// Proof: PoeModule Proofs (max_values: None, max_size: Some(63), added: 2538, mode: MaxEncodedLen)
+	/// The range of component `d` is `[0, 10]`.
+	fn transfer_claim(d: u32, ) -> Weight {
+		// Proof Size summary in bytes:
+		//  Measured:  `85 + d * (1 ±0)`
+		//  Estimated: `3528`
+		// Minimum execution time: 21_985_000 picoseconds.
+		Weight::from_parts(23_891_311, 3528)
+			// Standard Error: 31_088
+			.saturating_add(Weight::from_parts(69_350, 0).saturating_mul(d.into()))
 			.saturating_add(T::DbWeight::get().reads(1_u64))
 			.saturating_add(T::DbWeight::get().writes(1_u64))
 	}
@@ -71,10 +101,38 @@ impl WeightInfo for () {
 		// Proof Size summary in bytes:
 		//  Measured:  `6`
 		//  Estimated: `3528`
-		// Minimum execution time: 20_190_000 picoseconds.
-		Weight::from_parts(21_832_223, 3528)
-			// Standard Error: 31_527
-			.saturating_add(Weight::from_parts(179_683, 0).saturating_mul(d.into()))
+		// Minimum execution time: 20_686_000 picoseconds.
+		Weight::from_parts(22_079_509, 3528)
+			// Standard Error: 12_033
+			.saturating_add(Weight::from_parts(47_675, 0).saturating_mul(d.into()))
+			.saturating_add(RocksDbWeight::get().reads(1_u64))
+			.saturating_add(RocksDbWeight::get().writes(1_u64))
+	}
+	/// Storage: PoeModule Proofs (r:1 w:1)
+	/// Proof: PoeModule Proofs (max_values: None, max_size: Some(63), added: 2538, mode: MaxEncodedLen)
+	/// The range of component `d` is `[0, 10]`.
+	fn revoke_claim(d: u32, ) -> Weight {
+		// Proof Size summary in bytes:
+		//  Measured:  `85 + d * (1 ±0)`
+		//  Estimated: `3528`
+		// Minimum execution time: 20_340_000 picoseconds.
+		Weight::from_parts(19_952_320, 3528)
+			// Standard Error: 113_183
+			.saturating_add(Weight::from_parts(691_933, 0).saturating_mul(d.into()))
+			.saturating_add(RocksDbWeight::get().reads(1_u64))
+			.saturating_add(RocksDbWeight::get().writes(1_u64))
+	}
+	/// Storage: PoeModule Proofs (r:1 w:1)
+	/// Proof: PoeModule Proofs (max_values: None, max_size: Some(63), added: 2538, mode: MaxEncodedLen)
+	/// The range of component `d` is `[0, 10]`.
+	fn transfer_claim(d: u32, ) -> Weight {
+		// Proof Size summary in bytes:
+		//  Measured:  `85 + d * (1 ±0)`
+		//  Estimated: `3528`
+		// Minimum execution time: 21_985_000 picoseconds.
+		Weight::from_parts(23_891_311, 3528)
+			// Standard Error: 31_088
+			.saturating_add(Weight::from_parts(69_350, 0).saturating_mul(d.into()))
 			.saturating_add(RocksDbWeight::get().reads(1_u64))
 			.saturating_add(RocksDbWeight::get().writes(1_u64))
 	}
