@@ -8,11 +8,14 @@ mod mock;
 #[cfg(test)]
 mod tests;
 
+#[cfg(feature="runtime-benchmarks")]
+mod benchmarking;
+
 #[frame_support::pallet]
 pub mod pallet {
 
-    use frame_support::pallet_prelude::*;
-	use frame_system::pallet_prelude::*;
+    pub use frame_support::pallet_prelude::*;
+	pub use frame_system::pallet_prelude::*;
 
 
     #[pallet::config]
@@ -97,7 +100,7 @@ pub mod pallet {
 			
 			let sender = ensure_signed(origin)?;
 
-            let (owner,block_number)=Proofs::<T>::get(&claim).ok_or(Error::<T>::ClaimNotExist)?;
+            let (owner,_block_number)=Proofs::<T>::get(&claim).ok_or(Error::<T>::ClaimNotExist)?;
 
             ensure!(owner==sender,Error::<T>::NotClaimOwner);
 
